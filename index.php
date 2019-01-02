@@ -34,7 +34,12 @@ if ($Ext == "gif"){
   readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.gif");
   die();
 }
-if ($Ext == "jpeg" || "jpg"){
+if ($Ext == "jpeg"){
+  header ('Content-Type: image/jpeg');
+  readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.jpg");
+  die();
+}
+if ($Ext == "jpg"){
   header ('Content-Type: image/jpeg');
   readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.jpg");
   die();
