@@ -2,7 +2,6 @@
 
 // Retrieve essential user config options
 $blankGif   = "true";
-$blockImage = "https://assets.xcdn.eu/extensions/pihole/afbeelding.svg";
 $serverAddr = "https://assets.xcdn.eu/extensions/pihole/";
 
 // Define which URI extensions get rendered as 'Website Blocked' (Including empty for index.ext)
@@ -11,32 +10,13 @@ $webRender = array("asp", "htm", "html", "php", "rss", "xml", "");
 // Retrieve serverName URI extension (e.g: jpg, exe, php)
 $uriExt = pathinfo($_SERVER["REQUEST_URI"], PATHINFO_EXTENSION);
 
-// Load Lighttpd config for use with set_xpihole_header() function
-$lighttpdConf = (is_file("/etc/lighttpd/lighttpd.conf") ? file("/etc/lighttpd/lighttpd.conf") : false);
-
 // Handle block page redirects
 if ($domainName == "pi.hole") {
   // Redirect user to Pi-hole Admin Console
   header("Location: /admin");
   exit();
-} elseif (substr_count($_SERVER["REQUEST_URI"], "?") && isset($_SERVER["HTTP_REFERER"]) && $blankGif) {
-  // Assume that REQUEST_URI with query string and HTTP_REFERRER is PHBP being called from an iframe
-  // Serve a 1x1 blank gif
-
-  die("<img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs='>");
-} elseif (!in_array($uriExt, $webRender) || substr_count($_SERVER["REQUEST_URI"], "?")) {
-  // Non HTML renderable URL extension or non-iframed query string
-  // Serve 'Mobile Friendly' block image
-
-  $blockHtml = ($blockImage !== true ? '<a href="/"><img src="$blockImage"/></a>' : '<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="180" height="16"><defs><style>a {text-decoration: none;} circle {stroke: rgba(152,2,2,0.5); fill: none; stroke-width: 2;} rect {fill: rgba(152,2,2,0.5);} text {opacity: 0.3; font: 11px Arial;}</style></defs><circle cx="8" cy="8" r="7"/><rect x="10.3" y="-6" width="2" height="12" transform="rotate(45)"/><text x="19.3" y="12">Blocked by Hacemedia</text></svg></a>');
-  die("$blockHtml");
 }
 
-// Check setupVars for WEBPASSWORD
-if (!is_file("/etc/pihole/setupVars.conf")) die("[ERROR]: Unable to retrieve file: /etc/pihole/setupVars.conf");
-$setupVars = file("/etc/pihole/setupVars.conf", FILE_IGNORE_NEW_LINES);
-$webPassword = (preg_replace("/(.*=)/", "", array_stripos("WEBPASSWORD", $setupVars)) ? true : false);
-$setupVars = null;
 
 ?>
 
