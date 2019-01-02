@@ -14,7 +14,7 @@ if ($domainName == "pi.hole") {
   header("Location: /admin");
   exit();
 }
-if ($Ext = "png"){
+if ($Ext == "png"){
   header ('Content-Type: image/png');
   readfile("https://assets.xcdn.eu/extensions/pihole/afbeelding.png");
 }
