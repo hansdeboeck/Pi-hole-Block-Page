@@ -2,7 +2,11 @@
 
 
 // Retrieve serverName URI extension (e.g: jpg, exe, php)
-$uriExt = pathinfo($_SERVER["REQUEST_URI"], PATHINFO_EXTENSION);
+$uriExt = pathinfo($_SERVER["REQUEST_URI"]);
+$Ext = $uriExt['extension'];
+
+
+
 
 // Handle block page redirects
 if ($domainName == "pi.hole") {
@@ -10,7 +14,7 @@ if ($domainName == "pi.hole") {
   header("Location: /admin");
   exit();
 }
-if ($uriExt = "png"){
+if ($Ext = "png"){
   header ('Content-Type: image/png');
   readfile("https://assets.xcdn.eu/extensions/pihole/afbeelding.png");
 }
