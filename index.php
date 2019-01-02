@@ -1,7 +1,6 @@
 <?php
 
 // Retrieve essential user config options
-$landPage   = "landing.php";
 $blankGif   = "true";
 $blockImage = "https://assets.xcdn.eu/extensions/pihole/afbeelding.svg";
 $serverAddr = "https://assets.xcdn.eu/extensions/pihole/";
@@ -19,10 +18,6 @@ $lighttpdConf = (is_file("/etc/lighttpd/lighttpd.conf") ? file("/etc/lighttpd/li
 if ($domainName == "pi.hole") {
   // Redirect user to Pi-hole Admin Console
   header("Location: /admin");
-  exit();
-} elseif ($domainName == $serverAddr && $landPage || $domainName == $selfDomain && $landPage) {
-  // Redirect IP addr, or configured selfDomain to custom landing page
-  include $landPage;
   exit();
 } elseif (substr_count($_SERVER["REQUEST_URI"], "?") && isset($_SERVER["HTTP_REFERER"]) && $blankGif) {
   // Assume that REQUEST_URI with query string and HTTP_REFERRER is PHBP being called from an iframe
