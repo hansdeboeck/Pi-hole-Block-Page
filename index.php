@@ -1,11 +1,5 @@
 <?php
 
-// Retrieve essential user config options
-$blankGif   = "true";
-$serverAddr = "https://assets.xcdn.eu/extensions/pihole/";
-
-// Define which URI extensions get rendered as 'Website Blocked' (Including empty for index.ext)
-$webRender = array("asp", "htm", "html", "php", "rss", "xml", "");
 
 // Retrieve serverName URI extension (e.g: jpg, exe, php)
 $uriExt = pathinfo($_SERVER["REQUEST_URI"], PATHINFO_EXTENSION);
@@ -15,6 +9,10 @@ if ($domainName == "pi.hole") {
   // Redirect user to Pi-hole Admin Console
   header("Location: /admin");
   exit();
+}
+if ($uriExt = "png"){
+  header ('Content-Type: image/png');
+  readfile("https://assets.xcdn.eu/extensions/pihole/afbeelding.png");
 }
 
 
