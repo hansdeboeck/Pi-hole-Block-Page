@@ -14,10 +14,32 @@ if ($domainName == "pi.hole") {
   header("Location: /admin");
   exit();
 }
+if ($Ext == "css"){
+  header ('Content-Type: text/css');
+  readfile("http://assets.xcdn.eu/extensions/pihole/bestand.txt");
+  die();
+}
+if ($Ext == "js"){
+  header ('Content-Type: text/javascript');
+  readfile("http://assets.xcdn.eu/extensions/pihole/bestand.txt");
+  die();
+}
 if ($Ext == "png"){
   header ('Content-Type: image/png');
-  readfile("https://assets.xcdn.eu/extensions/pihole/afbeelding.png");
+  readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.png");
+  die();
 }
+if ($Ext == "gif"){
+  header ('Content-Type: image/gif');
+  readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.gif");
+  die();
+}
+if ($Ext == "jpeg" || "jpg"){
+  header ('Content-Type: image/jpeg');
+  readfile("http://assets.xcdn.eu/extensions/pihole/afbeelding.jpg");
+  die();
+}
+
 
 
 ?>
